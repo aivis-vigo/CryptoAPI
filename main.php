@@ -1,8 +1,14 @@
 <?php declare(strict_types=1);
 
 require_once 'vendor/autoload.php';
+use App\Menu;
 
-use Models\App;
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-$application = new App();
-$application->getMainMenu();
+$application = new Menu();
+try {
+    $application->run();
+} catch (GuzzleHttp\Exception\GuzzleException $e) {
+    return $e;
+}
